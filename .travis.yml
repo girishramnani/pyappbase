@@ -9,7 +9,7 @@ before_install:
   - pip install codecov
 
 script:
-  - py.test
+  - py.test -v 
 
 
 
