@@ -14,6 +14,10 @@ class SyncTest(unittest.TestCase):
 
     """
     def setUp(self):
+        """
+        injects the data from .env file to the tests.
+        :return:
+        """
         dotenv_path = join(dirname(__file__), '.env')
         load_dotenv(dotenv_path)
         self.appbase = Appbase(os.environ.get("USERNAME",""),os.environ.get("PASSWORD",""),os.environ.get("APPNAME",""))
@@ -21,6 +25,10 @@ class SyncTest(unittest.TestCase):
 
 
     def test_environ(self):
+        """
+        tests if the enivronment variables were loaded by checking if all of the values are not ""
+        :return:
+        """
         self.assertEqual(all([self.appbase.appname,self.appbase.password,self.appbase.username]),True)
 
     def test_ping(self):
