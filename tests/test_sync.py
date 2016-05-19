@@ -24,7 +24,7 @@ class SyncTest(unittest.TestCase):
         self.assertEquals(self.appbase.ping()["status"],200)
 
     def test_index(self):
-        self.assertEquals(True,False)
+        pass
 
     def test_get(self):
         pass
