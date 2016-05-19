@@ -1,17 +1,18 @@
 language: python
 python:
-  - "3.4"
+  - "3.5.1"
 install:
   - pip install -r requirements.txt
   
 
 before_install:
+  - python setup.py install
   - pip install codecov
 
 script:
   - py.test -v 
 
-
+success:
 
 
 
