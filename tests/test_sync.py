@@ -14,7 +14,7 @@ class SyncTest(unittest.TestCase):
         dotenv_path = join(dirname(__file__), '.env')
         load_dotenv(dotenv_path)
         self.appbase = Appbase(os.environ.get("USERNAME",""),os.environ.get("PASSWORD",""),os.environ.get("APPNAME",""))
-        self.appbase.setAsync(False)
+        self.appbase.set_async(False)
 
 
     def test_environ(self):
@@ -27,7 +27,11 @@ class SyncTest(unittest.TestCase):
         pass
 
     def test_get(self):
-        pass
+        data = self.appbase.get({
+            "type":"Books",
+            "id":"X1",
+        })
+        self.assertEqual(data["_source"]["name"],"A Fake Book on Network Routing")
 
 
     def test_update(self):

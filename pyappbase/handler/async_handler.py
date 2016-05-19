@@ -2,4 +2,7 @@
 
 
 class AsyncHandler(object):
-    pass
+
+
+    def __init__(self,url):
+        self.url = url
