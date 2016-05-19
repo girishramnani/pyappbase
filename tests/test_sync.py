@@ -24,6 +24,7 @@ class SyncTest(unittest.TestCase):
         self.assertEqual(all([self.appbase.appname,self.appbase.password,self.appbase.username]),True)
 
     def test_ping(self):
+        self.appbase.ping()
         self.assertEquals(self.appbase.ping()["status"],200)
 
     def test_index(self):
@@ -49,11 +50,11 @@ class SyncTest(unittest.TestCase):
     def test_search(self):
         pass
 
-    def get_stream(self):
+    def test_get_stream(self):
         pass
 
-    def search_stream(self):
+    def test_search_stream(self):
         pass
 
-    def search_stream_to_url(self):
+    def test_search_stream_to_url(self):
         pass
