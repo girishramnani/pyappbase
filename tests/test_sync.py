@@ -8,8 +8,11 @@ from pyappbase import Appbase
 
 
 class SyncTest(unittest.TestCase):
+    """
 
+    Tests for synchronous handler
 
+    """
     def setUp(self):
         dotenv_path = join(dirname(__file__), '.env')
         load_dotenv(dotenv_path)
