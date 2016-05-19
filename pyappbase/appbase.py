@@ -50,4 +50,10 @@ class Appbase(object):
             self.req_handler = SyncHandler(self.URL)
 
     def get(self, data):
+        """
+        takes in data having a type and id to get the data from appbase
+
+        :param data:
+        :return: returns an object which has "_source" dict which contains the attributes of the required query.
+        """
         return self.req_handler.get(data)
