@@ -18,7 +18,10 @@ class SyncTest(unittest.TestCase):
 
 
     def test_environ(self):
-        self.
+        self.assertEqual(all([self.appbase.appname,self.appbase.password,self.appbase.username]),True)
+
+    def test_ping(self):
+        self.assertEquals(self.appbase.ping()["status"],200)
 
     def test_index(self):
         pass

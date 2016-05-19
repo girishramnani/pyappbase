@@ -14,11 +14,11 @@ class Appbase(object):
         self.auth = (username, password)
         self.setAsync()
 
-        self.URL = "https://{user}:{passwd}@scalr.api.appbase.io/{app}".format(user=username, passw=password,
+        self.URL = "https://{user}:{passwd}@scalr.api.appbase.io/{app}".format(user=username, passwd=password,
                                                                                app=appname)
 
     def ping(self):
-        response = self.req_handler.ping(self.URL, self.auth)
+        response = self.req_handler.ping(self.URL)
         return response.json()
 
     def setAsync(self, boolean=True):
