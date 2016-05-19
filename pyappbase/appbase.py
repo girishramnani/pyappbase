@@ -1,5 +1,4 @@
-import handler as h
-
+from .handler import AsyncHandler,SyncHandler
 
 class WrongCredentialError(Exception):
     def __init__(self):
@@ -23,7 +22,7 @@ class Appbase(object):
 
     def setAsync(self, boolean=True):
         if boolean == True:
-            self.req_handler = h.AsyncHandler()
+            self.req_handler = AsyncHandler()
 
         else:
-            self.req_handler = h.SyncHandler()
+            self.req_handler = SyncHandler()
