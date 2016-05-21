@@ -4,7 +4,6 @@ from os.path import join, dirname
 from dotenv import load_dotenv
 import os
 
-import utils
 from pyappbase import Appbase
 
 
@@ -42,11 +41,7 @@ class SyncTest(unittest.TestCase):
         injects the data from .env file to the tests.
         :return:
         """
-        dotenv_path = join(dirname(__file__), '.env')
-        load_dotenv(dotenv_path)
-        self.appbase = Appbase(os.environ.get("USERNAME",""),os.environ.get("PASSWORD",""),os.environ.get("APPNAME",""))
-        self.appbase.set_async(False)
-
+        self.appbase = setup()
 
     def test_environ(self):
         """
