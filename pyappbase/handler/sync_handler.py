@@ -1,5 +1,7 @@
 import requests
 
+from utils import map_object, make_url
+
 
 class SyncHandler(object):
     """
@@ -24,4 +26,17 @@ class SyncHandler(object):
         :param data:
         :return:
         """
-        return requests.get(url="".join([self.url, "/", data["type"], "/", data["id"]])).json()
+        return requests.get(url=make_url(self.url,data)).json()
+
+
+
+    def update(self,data):
+
+        compat_object = map_object(data)
+
+        return requests.post(url=make_url(self.url,data),data=compat_object).json()
+
+
+
+
+        return requests

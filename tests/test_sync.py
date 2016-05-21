@@ -47,7 +47,25 @@ class SyncTest(unittest.TestCase):
 
 
     def test_update(self):
-        pass
+        data = self.appbase.update({
+            "type":"Books",
+            "id":"X2",
+            "body":{
+              "department_id": 1,
+              "department_name": "Books",
+              "name": "A Fake Book on Distributed Compute",
+              "price": 5295
+            }
+        })
+
+        self.assertRaises(lambda : KeyError,data["error"])
+        data = self.appbase.get({
+            "type":"Books",
+            "id":"X2",
+        })
+        self.assertEqual(data["_source"]["name"],"A Fake Book on Distributed Compute")
+
+
 
     def test_delete(self):
         pass
