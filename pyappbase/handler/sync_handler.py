@@ -1,6 +1,8 @@
+import json
+
 import requests
 
-from utils import map_object, make_url
+from pyappbase.utils import map_object, make_url
 
 
 class SyncHandler(object):
@@ -32,11 +34,8 @@ class SyncHandler(object):
 
     def update(self,data):
 
-        compat_object = map_object(data)
-
-        return requests.post(url=make_url(self.url,data),data=compat_object).json()
-
-
+        compat_object = data["body"]
+        return requests.post(url=make_url(self.url,data),data=json.dumps(compat_object)).json()
 
 
         return requests

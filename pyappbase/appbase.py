@@ -57,3 +57,12 @@ class Appbase(object):
         :return: returns an object which has "_source" dict which contains the attributes of the required query.
         """
         return self.req_handler.get(data)
+
+
+    def update(self,data):
+        """
+        takes in data and body of the object that is to be updated and sends it to appbase
+        :param data:
+        :return:
+        """
+        return self.req_handler.update(data)

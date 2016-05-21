@@ -4,7 +4,16 @@ from os.path import join, dirname
 from dotenv import load_dotenv
 import os
 
+import utils
 from pyappbase import Appbase
+
+
+def setup():
+    dotenv_path = join(dirname(__file__), '.env')
+    load_dotenv(dotenv_path)
+    appbase = Appbase(os.environ.get("USERNAME",""),os.environ.get("PASSWORD",""),os.environ.get("APPNAME",""))
+    appbase.set_async(False)
+    return appbase
 
 
 class SyncTest(unittest.TestCase):
@@ -13,6 +22,21 @@ class SyncTest(unittest.TestCase):
     Tests for synchronous handler
 
     """
+
+    @classmethod
+    def tearDownClass(cls):
+        data = setup().update({
+            "type":"Books",
+            "id":"X2",
+            "body":{
+              "department_id": 1,
+              "department_name": "Books",
+              "name": "A Fake Book on Network Routing",
+              "price": 5295
+            }
+        })
+
+
     def setUp(self):
         """
         injects the data from .env file to the tests.
@@ -41,7 +65,7 @@ class SyncTest(unittest.TestCase):
     def test_get(self):
         data = self.appbase.get({
             "type":"Books",
-            "id":"X1",
+            "id":"X2",
         })
         self.assertEqual(data["_source"]["name"],"A Fake Book on Network Routing")
 
@@ -58,7 +82,6 @@ class SyncTest(unittest.TestCase):
             }
         })
 
-        self.assertRaises(lambda : KeyError,data["error"])
         data = self.appbase.get({
             "type":"Books",
             "id":"X2",
