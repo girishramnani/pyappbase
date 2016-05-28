@@ -68,7 +68,7 @@ class SyncTest(unittest.TestCase):
     def test_update(self):
         data = self.appbase.update({
             "type":"Books",
-            "id":"X2",
+            "id":"X3",
             "body":{
               "department_id": 1,
               "department_name": "Books",
@@ -79,14 +79,35 @@ class SyncTest(unittest.TestCase):
 
         data = self.appbase.get({
             "type":"Books",
-            "id":"X2",
+            "id":"X3",
         })
         self.assertEqual(data["_source"]["name"],"A Fake Book on Distributed Compute")
 
 
 
     def test_delete(self):
-        pass
+        data = self.appbase.update({
+            "type":"Books",
+            "id":"X3",
+            "body":{
+              "department_id": 1,
+              "department_name": "Books",
+              "name": "A Fake Book on Distributed Compute",
+              "price": 5295
+            }
+        })
+
+        data = self.appbase.delete({
+            "type":"Books",
+            "id":"X3"
+        })
+
+        self.assertEqual(self.appbase.get({
+            "type":"Books",
+            "id":"X3",
+        })["found"],False)
+
+
 
     def test_bulk(self):
         pass

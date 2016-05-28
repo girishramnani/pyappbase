@@ -66,3 +66,8 @@ class Appbase(object):
         :return:
         """
         return self.req_handler.update(data)
+
+
+    def delete(self,data):
+
+        return self.req_handler.delete(data)

@@ -39,3 +39,7 @@ class SyncHandler(object):
 
 
         return requests
+
+
+    def delete(self,data):
+        return requests.delete(url=make_url(self.url,data)).json()
