@@ -7,10 +7,10 @@ install:
 
 before_install:
   - python setup.py install
-  - pip install codecov pytest-cov
+  - pip install codecov pytest-cov pytest-xdist
 
 script:
-  - py.test -v 
+  - py.test --cov -v
 
 after_success:
   - codecov
