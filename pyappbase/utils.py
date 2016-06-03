@@ -1,5 +1,23 @@
+from functools import wraps
+
+from handler.async_handler import AsyncHandler
+import types
+import asyncio
 
 
+def conditional_generator(func):
+    @wraps
+    def wrapper(*args,**kwargs):
+
+        try:
+            self = args[0]
+            is_instance = isinstance(self,AsyncHandler)
+        except IndexError:
+            raise IndexError("the function wrapped is not a method")
+
+        if is_instance:
+            return  asyncio.coroutine(func)
+        return func
 
 
 
