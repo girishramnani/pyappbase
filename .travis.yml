@@ -7,12 +7,10 @@ install:
 
 before_install:
   - python setup.py install
-  - pip install codecov
+  - pip install coveralls pytest-cov pytest-xdist
 
 script:
-  - py.test
-  - coverage run tests/test_async.py
-  - coverage run tests/test_sync.py
+  - py.test --cov=pyappbase -v
 
 after_success:
   - codecov
