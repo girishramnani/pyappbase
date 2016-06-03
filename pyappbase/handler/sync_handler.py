@@ -2,7 +2,7 @@ import json
 
 import requests
 
-from pyappbase.utils import map_object, make_url
+from pyappbase.utils import make_url
 
 
 class SyncHandler(object):

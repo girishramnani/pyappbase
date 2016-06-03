@@ -1,7 +1,7 @@
 import asyncio
 from functools import wraps
 
-from handler.async_handler import AsyncHandler
+from pyappbase.handler import AsyncHandler
 
 
 def conditional_coroutine(func):
@@ -49,6 +49,7 @@ def map_object(data):
     }
 
     return data
+
 
 def make_url(url,data):
     return "".join([url, "/", data["type"], "/", data["id"]])
