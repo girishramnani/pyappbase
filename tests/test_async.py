@@ -1,9 +1,7 @@
 import asyncio
 import time
 import unittest
-
 from test_sync import setup
-
 from pyappbase import Appbase
 
 
@@ -19,6 +17,11 @@ class AsnycTests(unittest.TestCase):
         self.appbase.set_async()
 
     def test_async_sync_ping_comparison(self):
+        """
+        This test runs the sync and async methods 'call_counts' times and checks if the async is faster than
+        sync or not ( more than twice or test brakes )
+        :return:
+        """
         # number of simultaneous calls
         call_counts = 4
 
@@ -51,6 +54,11 @@ class AsnycTests(unittest.TestCase):
         self.assertGreater(sync_difference / 2, async_difference)
 
     def test_async_two_methods(self):
+        """
+
+        simple asynchronously running ping with an async hello_world coroutine
+        :return:
+        """
         async def get_data():
             return await self.appbase.ping()
 

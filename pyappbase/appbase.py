@@ -69,5 +69,10 @@ class Appbase(object):
 
 
     def delete(self,data):
+        """
+        takes in the type and id of the object hat is to be removed
+        :param data:
+        :return:
+        """
 
         return self.req_handler.delete(data)

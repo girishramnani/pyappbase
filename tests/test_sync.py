@@ -1,9 +1,7 @@
 import os
 import unittest
 from os.path import join, dirname
-
 from dotenv import load_dotenv
-
 from pyappbase import Appbase
 
 
@@ -25,16 +23,15 @@ class SyncTest(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         data = setup(Appbase).update({
-            "type":"Books",
-            "id":"X2",
-            "body":{
-              "department_id": 1,
-              "department_name": "Books",
-              "name": "A Fake Book on Network Routing",
-              "price": 5295
+            "type": "Books",
+            "id": "X2",
+            "body": {
+                "department_id": 1,
+                "department_name": "Books",
+                "name": "A Fake Book on Network Routing",
+                "price": 5295
             }
         })
-
 
     def setUp(self):
         """
@@ -48,66 +45,61 @@ class SyncTest(unittest.TestCase):
         tests if the enivronment variables were loaded by checking if all of the values are not ""
         :return:
         """
-        self.assertEqual(all([self.appbase.appname,self.appbase.password,self.appbase.username]),True)
+        self.assertEqual(all([self.appbase.appname, self.appbase.password, self.appbase.username]), True)
 
     def test_ping(self):
         self.appbase.ping()
-        self.assertEquals(self.appbase.ping()["status"],200)
+        self.assertEquals(self.appbase.ping()["status"], 200)
 
     def test_index(self):
         pass
 
     def test_get(self):
         data = self.appbase.get({
-            "type":"Books",
-            "id":"X2",
+            "type": "Books",
+            "id": "X2",
         })
-        self.assertEqual(data["_source"]["name"],"A Fake Book on Network Routing")
-
+        self.assertEqual(data["_source"]["name"], "A Fake Book on Network Routing")
 
     def test_update(self):
         data = self.appbase.update({
-            "type":"Books",
-            "id":"X3",
-            "body":{
-              "department_id": 1,
-              "department_name": "Books",
-              "name": "A Fake Book on Distributed Compute",
-              "price": 5295
+            "type": "Books",
+            "id": "X3",
+            "body": {
+                "department_id": 1,
+                "department_name": "Books",
+                "name": "A Fake Book on Distributed Compute",
+                "price": 5295
             }
         })
 
         data = self.appbase.get({
-            "type":"Books",
-            "id":"X3",
+            "type": "Books",
+            "id": "X3",
         })
-        self.assertEqual(data["_source"]["name"],"A Fake Book on Distributed Compute")
-
-
+        self.assertEqual(data["_source"]["name"], "A Fake Book on Distributed Compute")
 
     def test_delete(self):
         data = self.appbase.update({
-            "type":"Books",
-            "id":"X3",
-            "body":{
-              "department_id": 1,
-              "department_name": "Books",
-              "name": "A Fake Book on Distributed Compute",
-              "price": 5295
+            "type": "Books",
+            "id": "X3",
+            "body": {
+                "department_id": 1,
+                "department_name": "Books",
+                "name": "A Fake Book on Distributed Compute",
+                "price": 5295
             }
         })
 
         data = self.appbase.delete({
-            "type":"Books",
-            "id":"X3"
+            "type": "Books",
+            "id": "X3"
         })
 
         self.assertEqual(self.appbase.get({
-            "type":"Books",
-            "id":"X3",
-        })["found"],False)
-
-
+            "type": "Books",
+            "id": "X3",
+        })["found"], False)
 
     def test_bulk(self):
         pass
