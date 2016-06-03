@@ -1,11 +1,10 @@
+import asyncio
 from functools import wraps
 
 from handler.async_handler import AsyncHandler
-import types
-import asyncio
 
 
-def conditional_generator(func):
+def conditional_coroutine(func):
     @wraps
     def wrapper(*args,**kwargs):
 
