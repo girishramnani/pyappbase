@@ -10,7 +10,7 @@ before_install:
   - pip install codecov pytest-cov pytest-xdist
 
 script:
-  - py.test --cov -v
+  - py.test --cov=pyappbase -v tests/
 
 after_success:
   - codecov
