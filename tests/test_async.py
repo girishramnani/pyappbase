@@ -48,7 +48,7 @@ class AsnycTests(unittest.TestCase):
         print()
 
         # the async is more than twice as fast
-        self.assertGreater(sync_difference // 2, async_difference)
+        self.assertGreater(sync_difference / 2, async_difference)
 
     def test_async_two_methods(self):
         async def get_data():
