@@ -19,7 +19,7 @@ class SyncHandler(object):
         checks if the connection is working or not
         :return: returns a dict of type { "status" : int , "message" : string }
         """
-        return requests.get(self.url)
+        return requests.get(self.url).json()
 
     def get(self, data):
         """

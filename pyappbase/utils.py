@@ -1,23 +1,25 @@
 import asyncio
-from functools import wraps
 
 from pyappbase.handler import AsyncHandler
 
 
 def conditional_coroutine(func):
-    @wraps
+
     def wrapper(*args,**kwargs):
 
         try:
             self = args[0]
-            is_instance = isinstance(self,AsyncHandler)
+
+            for attribute in self.__dict__:
+                if isinstance(getattr(self, attribute), AsyncHandler):
+                    return asyncio.coroutine(func)
+
         except IndexError:
             raise IndexError("the function wrapped is not a method")
 
-        if is_instance:
-            return  asyncio.coroutine(func)
         return func
 
+    return wrapper
 
 
 def map_object(data):

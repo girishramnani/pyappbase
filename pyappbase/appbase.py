@@ -34,8 +34,8 @@ class Appbase(object):
         checks if the connection is working or not
         :return: returns a dict of type { "status" : int , "message" : string }
         """
-        response = self.req_handler.ping()
-        return response.json()
+        return self.req_handler.ping()
+
 
     def set_async(self, boolean=True):
         """

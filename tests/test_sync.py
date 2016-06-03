@@ -1,16 +1,16 @@
-import unittest
-
-from os.path import join, dirname
-from dotenv import load_dotenv
 import os
+import unittest
+from os.path import join, dirname
+
+from dotenv import load_dotenv
 
 from pyappbase import Appbase
 
 
-def setup():
+def setup(Instance):
     dotenv_path = join(dirname(__file__), '.env')
     load_dotenv(dotenv_path)
-    appbase = Appbase(os.environ.get("USERNAME",""),os.environ.get("PASSWORD",""),os.environ.get("APPNAME",""))
+    appbase = Instance(os.environ.get("USERNAME", ""), os.environ.get("PASSWORD", ""), os.environ.get("APPNAME", ""))
     appbase.set_async(False)
     return appbase
 
@@ -24,7 +24,7 @@ class SyncTest(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        data = setup().update({
+        data = setup(Appbase).update({
             "type":"Books",
             "id":"X2",
             "body":{
@@ -41,7 +41,7 @@ class SyncTest(unittest.TestCase):
         injects the data from .env file to the tests.
         :return:
         """
-        self.appbase = setup()
+        self.appbase = setup(Appbase)
 
     def test_environ(self):
         """
