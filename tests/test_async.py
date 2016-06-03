@@ -55,15 +55,15 @@ class AsnycTests(unittest.TestCase):
             return await self.appbase.ping()
 
         # some thing multable
-        w = [True]
+        wait = [True]
         data = []
-        asyncio.get_event_loop().create_task(hello_world(w, data))
-        a = asyncio.get_event_loop().run_until_complete(get_data())
-        w[0] = False
+        asyncio.get_event_loop().create_task(hello_world(wait, data))
+        results = asyncio.get_event_loop().run_until_complete(get_data())
+        wait[0] = False
 
         async def temp():
             await asyncio.sleep(1)
 
         asyncio.get_event_loop().run_until_complete(temp())
-        print(a)
+        print(results)
         self.assertNotEquals(len(data), 0)

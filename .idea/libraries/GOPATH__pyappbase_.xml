@@ -71,6 +71,7 @@
       <root url="file://$USER_HOME$/GoProjects/src/github.com/klauspost/compress/zip/testdata" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/hashicorp/atlas-go/archive/test-fixtures/archive-hg/.hg" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/hashicorp/raft-boltdb/.git" />
+      <root url="file://$USER_HOME$/GoProjects/src/github.com/google/go-github/.git" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/jgautheron/goconst/.git" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/beego/bee/testdata" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/youtube/vitess/Godeps/_workspace" />
@@ -133,6 +134,7 @@
       <root url="file://$USER_HOME$/GoProjects/src/github.com/youtube/vitess/vitess.io/_data" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/coreos/etcd/integration/testdata" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/youtube/vitess/vitess.io/_includes" />
+      <root url="file://$USER_HOME$/GoProjects/src/github.com/tmrts/go-patterns/.git" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/golang/go/src/debug/elf/testdata" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/hashicorp/go-getter/test-fixtures/basic-dot/.test" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/hashicorp/go-getter/test-fixtures/basic-hg/.hg" />
@@ -234,6 +236,7 @@
       <root url="file://$USER_HOME$/GoProjects/src/github.com/willf/bloom/.git" />
       <root url="file://$USER_HOME$/GoProjects/src/golang.org/x/tools/cmd/callgraph/testdata" />
       <root url="file://$USER_HOME$/GoProjects/src/golang.org/x/tools/cmd/stringer/testdata" />
+      <root url="file://$USER_HOME$/GoProjects/src/github.com/otoolep/hraftd/hraftd/.git" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/willf/bitset/.git" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/garyburd/redigo/.git" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/FlashBoys/go-finance/.git" />
@@ -330,13 +333,16 @@
       <root url="file://$USER_HOME$/GoProjects/src/github.com/jpillora/cloud-torrent/Godeps/_workspace" />
       <root url="file://$USER_HOME$/GoProjects/src/golang.org/x/tools/go/callgraph/cha/testdata" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/joewalnes/websocketd/.git" />
+      <root url="file://$USER_HOME$/GoProjects/src/github.com/tmrts/boilr/.git" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/cznic/b/.git" />
       <root url="file://$USER_HOME$/GoProjects/src/golang.org/x/tools/go/ssa/testdata" />
+      <root url="file://$USER_HOME$/GoProjects/src/github.com/docker/go-units/.git" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/davecgh/go-spew/spew/testdata" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/elazarl/go-bindata-assetfs/.git" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/golang/go/src/regexp/testdata" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/golang/go/src/net/http/cgi/testdata" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/yudai/umutex/.git" />
+      <root url="file://$USER_HOME$/GoProjects/src/github.com/girishramnani/R.A.V.I/.git" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/cznic/ql/.git" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/gorilla/mux/.git" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/cznic/ql/_testdata" />
@@ -423,6 +429,7 @@
       <root url="file://$USER_HOME$/GoProjects/src/github.com/revel/cmd/.git" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/hashicorp/go-syslog/.git" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/anacrolix/torrent/.git" />
+      <root url="file://$USER_HOME$/GoProjects/src/github.com/olekukonko/tablewriter/.git" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/hashicorp/go-uuid/.git" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/hashicorp/go-immutable-radix/.git" />
       <root url="file://$USER_HOME$/GoProjects/src/gin-go-web-app-framework/1-gin-go-web-app-framework-m1-exercise-files/node_modules/gulp-livereload/node_modules/.bin" />
@@ -432,6 +439,7 @@
       <root url="file://$USER_HOME$/GoProjects/src/github.com/alecthomas/gocyclo/.git" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/nsf/gocode/_goremote" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/nsf/gocode/_gccgo" />
+      <root url="file://$USER_HOME$/GoProjects/src/github.com/google/go-querystring/.git" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/nsf/gocode/_testing" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/gizak/termui/_extra" />
       <root url="file://$USER_HOME$/GoProjects/src/github.com/hashicorp/golang-lru/.git" />
