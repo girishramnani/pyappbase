@@ -10,10 +10,11 @@ before_install:
   - pip install coveralls pytest-cov pytest-xdist
 
 script:
+  - cd tests/
   - py.test --cov=pyappbase -v
 
 after_success:
-  - codecov
+  - coveralls
 
 
 
