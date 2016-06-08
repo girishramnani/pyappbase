@@ -1,9 +1,10 @@
 import asyncio
 
-from pyappbase.handler import AsyncHandler
+
 
 
 def conditional_coroutine(func):
+    from pyappbase.handler import AsyncHandler
 
     def wrapper(*args,**kwargs):
 

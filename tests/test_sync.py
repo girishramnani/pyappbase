@@ -22,7 +22,7 @@ class SyncTest(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        data = setup(Appbase).update({
+        setup(Appbase).update({
             "type": "Books",
             "id": "X2",
             "body": {

@@ -12,9 +12,24 @@ async def hello_world(d, data):
 
 
 class AsnycTests(unittest.TestCase):
+
     def setUp(self):
+        self.data = {
+            "type": "Books",
+            "id": "X2",
+        }
         self.appbase = setup(Appbase)
         self.appbase.set_async()
+        setup(Appbase).update({
+            "type": "Books",
+            "id": "X2",
+            "body": {
+                "department_id": 1,
+                "department_name": "Books",
+                "name": "A Fake Book on Network Routing",
+                "price": 5295
+            }
+        })
 
     def test_async_sync_ping_comparison(self):
         """
@@ -75,3 +90,31 @@ class AsnycTests(unittest.TestCase):
         asyncio.get_event_loop().run_until_complete(temp())
         print(results)
         self.assertNotEquals(len(data), 0)
+
+    def test_async_get(self):
+
+        async def get_data():
+            return await self.appbase.get(self.data)
+
+        results = asyncio.get_event_loop().run_until_complete(get_data())
+        self.assertEqual(results["_source"]["name"], "A Fake Book on Network Routing")
+
+    def test_async_update(self):
+
+        async def update_data():
+            return await self.appbase.update({
+            "type": "Books",
+            "id": "X2",
+            "body": {
+                "department_id": 1,
+                "department_name": "Books",
+                "name": "A Fake Book on Distributed Compute",
+                "price": 5295
+            }
+        })
+        async def get_data():
+            return await self.appbase.get(self.data)
+
+        update = asyncio.get_event_loop().create_task(update_data())
+        result = asyncio.get_event_loop().run_until_complete(get_data())
+        self.assertEqual(result["_source"]["name"], "A Fake Book on Distributed Compute")
