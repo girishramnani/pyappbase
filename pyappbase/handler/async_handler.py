@@ -21,4 +21,15 @@ class AsyncHandler(object):
                 resp = await response.read()
                 return json.loads(resp.decode())
 
-    
+    async def update(self,data):
+        compat_object = data["body"]
+        with aiohttp.ClientSession() as session:
+            async with session.post(make_url(self.url,data),data=json.dumps(compat_object)) as response:
+                resp = await response.read()
+                return json.loads(resp.decode())
+
+    async def delete(self,data):
+        with aiohttp.ClientSession() as session:
+            async with session.delete(make_url(self.url,data)) as response:
+                resp = await response.read()
+                return json.loads(resp.decode())

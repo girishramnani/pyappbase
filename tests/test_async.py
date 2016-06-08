@@ -20,7 +20,9 @@ class AsnycTests(unittest.TestCase):
         }
         self.appbase = setup(Appbase)
         self.appbase.set_async()
-        self.appbase.update({
+        self.sync_appbase = setup(Appbase)
+
+        self.sync_appbase.update({
             "type": "Books",
             "id": "X2",
             "body": {
@@ -40,8 +42,6 @@ class AsnycTests(unittest.TestCase):
         # number of simultaneous calls
         call_counts = 4
 
-        self.sync_appbase = setup(Appbase)
-        self.sync_appbase.set_async(False)
 
         t = time.time()
         for i in range(call_counts):
@@ -115,6 +115,7 @@ class AsnycTests(unittest.TestCase):
         async def get_data():
             return await self.appbase.get(self.data)
 
-        update = asyncio.get_event_loop().create_task(update_data())
+        update = asyncio.get_event_loop().run_until_complete(update_data())
+
         result = asyncio.get_event_loop().run_until_complete(get_data())
         self.assertEqual(result["_source"]["name"], "A Fake Book on Distributed Compute")
