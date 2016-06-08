@@ -1,5 +1,5 @@
 import aiohttp
-
+import json
 from pyappbase.utils import make_url
 
 
@@ -19,4 +19,6 @@ class AsyncHandler(object):
         with aiohttp.ClientSession() as session:
             async with session.get(make_url(self.url,data)) as response:
                 resp = await response.read()
-                return resp.decode()
+                return json.loads(resp.decode())
+
+    

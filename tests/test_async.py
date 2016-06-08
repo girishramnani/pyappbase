@@ -20,7 +20,7 @@ class AsnycTests(unittest.TestCase):
         }
         self.appbase = setup(Appbase)
         self.appbase.set_async()
-        setup(Appbase).update({
+        self.appbase.update({
             "type": "Books",
             "id": "X2",
             "body": {
