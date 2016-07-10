@@ -1,4 +1,5 @@
 import os
+import threading
 import unittest
 from os.path import join, dirname
 from dotenv import load_dotenv
@@ -108,7 +109,26 @@ class SyncTest(unittest.TestCase):
         pass
 
     def test_get_stream(self):
-        pass
+        def func():
+            self.appbase.get_stream({
+                "type": "Books",
+                "id": "X3",
+            },lambda x: print(x) )
+
+        t = threading.Thread(target=func)
+        t.start()
+        self.appbase.update({
+            "type": "Books",
+            "id": "X3",
+            "body": {
+                "department_id": 1,
+                "department_name": "Books",
+                "name": "A Fake Book on Distributed Compute",
+                "price": 5295
+            }
+        })
+        t.join()
+
 
     def test_search_stream(self):
         pass
