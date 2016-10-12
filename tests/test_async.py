@@ -19,7 +19,7 @@ class AsnycTests(unittest.TestCase):
             "id": "X2",
         }
         self.appbase = setup(Appbase)
-        self.appbase.set_async()
+        self.appbase._set_async()
         self.sync_appbase = setup(Appbase)
 
         self.sync_appbase.update({

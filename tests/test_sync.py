@@ -10,7 +10,7 @@ def setup(Instance):
     dotenv_path = join(dirname(__file__), '.env')
     load_dotenv(dotenv_path)
     appbase = Instance(os.environ.get("USERNAME", ""), os.environ.get("PASSWORD", ""), os.environ.get("APPNAME", ""))
-    appbase.set_async(False)
+    appbase._set_async(False)
     return appbase
 
 

@@ -1,5 +1,6 @@
 import aiohttp
 import json
+import asyncio
 from pyappbase.utils import make_url
 
 
@@ -7,6 +8,8 @@ class AsyncHandler(object):
 
     def __init__(self, url):
         self.url = url
+        self._hold = asyncio.Event()
+        self._hold.set()
 
     async def ping(self):
         with aiohttp.ClientSession() as session:
@@ -41,20 +44,28 @@ class AsyncHandler(object):
 
         return await self._stream_on_url(url,data,callback)
 
+    def close_stream(self):
+        self._hold.clear()
+
+    def open_stream(self):
+        self._hold.set()
+
 
     async def _stream_on_url(self,url,data,callback):
-         with aiohttp.ClientSession() as session:
+        self.open_stream()
+        with aiohttp.ClientSession() as session:
             async with session.get(url) as response:
-                while not response.content.at_eof():
+                while (not response.content.at_eof()) and self._hold.is_set():
                     line = await response.content.readany() # reads all the content in the buffer
                     callback(line)
-
+                response.close()
 
     async def search_stream(self,data,callback):
+        self.open_stream()
         url = "{url}/{type}/_search?stream=true".format(url=self.url,type=data["type"][:])
         del(data["type"])
         with aiohttp.ClientSession() as session:
             async with session.post(url,data=json.dumps(data)) as response:
-                while not response.content.at_eof():
+                while (not response.content.at_eof()) and self._hold.is_set():
                     line = await response.content.readany() # reads all the content in the buffer
                     callback(line)
