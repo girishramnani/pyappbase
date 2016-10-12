@@ -27,7 +27,7 @@ class Appbase(object):
         self.URL = "https://{user}:{passwd}@scalr.api.appbase.io/{app}".format(user=username, passwd=password,
                                                                                app=appname)
 
-        self.set_async()
+        self._set_async()
 
     def ping(self):
         """
@@ -37,7 +37,7 @@ class Appbase(object):
         return self.req_handler.ping()
 
 
-    def set_async(self, boolean=True):
+    def _set_async(self, boolean=True):
         """
         sets if the handlers should be async or synchronous. Defaults to async.
         :param boolean:
@@ -80,3 +80,6 @@ class Appbase(object):
     def get_stream(self,data,callback):
 
         return self.req_handler.get_stream(data,callback)
+
+    def search_stream(self,data,callback):
+        return self.req_handler.search_stream(data,callback)

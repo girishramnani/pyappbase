@@ -35,7 +35,7 @@ class AsnycStreamTests(unittest.TestCase):
         })
 
 
-    def test_stream(self):
+    def test_get_stream(self):
 
         loop = asyncio.get_event_loop()
         loop.create_task(self.appbase.get_stream({
@@ -45,3 +45,10 @@ class AsnycStreamTests(unittest.TestCase):
 
         loop.create_task(hello_world())
         loop.run_until_complete(asyncio.sleep(5))
+
+    def test_search_stream(self):
+        loop = asyncio.get_event_loop()
+        loop.create_task(self.appbase.search_stream({"type":"Books","query": {"match_all":{}}},lambda word: print(word)))
+        loop.create_task(hello_world())
+        loop.run_until_complete(asyncio.sleep(5))
+

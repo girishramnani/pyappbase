@@ -38,10 +38,23 @@ class AsyncHandler(object):
     async def get_stream(self,data,callback):
         url = make_url(self.url,data)
         url = url + "?stream=true"
-        print(url)
-        with aiohttp.ClientSession() as session:
+
+        return await self._stream_on_url(url,data,callback)
+
+
+    async def _stream_on_url(self,url,data,callback):
+         with aiohttp.ClientSession() as session:
             async with session.get(url) as response:
                 while not response.content.at_eof():
-                    line = await response.content.readany()
+                    line = await response.content.readany() # reads all the content in the buffer
                     callback(line)
 
+
+    async def search_stream(self,data,callback):
+        url = "{url}/{type}/_search?stream=true".format(url=self.url,type=data["type"][:])
+        del(data["type"])
+        with aiohttp.ClientSession() as session:
+            async with session.post(url,data=json.dumps(data)) as response:
+                while not response.content.at_eof():
+                    line = await response.content.readany() # reads all the content in the buffer
+                    callback(line)

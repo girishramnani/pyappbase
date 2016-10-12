@@ -33,7 +33,6 @@ class SyncHandler(object):
 
 
     def update(self,data):
-
         compat_object = data["body"]
         return requests.post(url=make_url(self.url,data),data=json.dumps(compat_object)).json()
 
@@ -46,8 +45,8 @@ class SyncHandler(object):
 
 
     def get_stream(self,data,callback):
+        raise NotImplementedError
 
-        url = make_url(self.url,data)+"?stream=true" # direct concatenation as the url isn't going to be used by the user
+    def search_stream(self,data,callback):
+        raise NotImplementedError
 
-        if callback:
-            pass
