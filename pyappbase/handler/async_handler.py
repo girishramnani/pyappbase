@@ -69,3 +69,4 @@ class AsyncHandler(object):
                 while (not response.content.at_eof()) and self._hold.is_set():
                     line = await response.content.readany() # reads all the content in the buffer
                     callback(line)
+                response.close()
