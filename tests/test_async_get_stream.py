@@ -43,4 +43,5 @@ class AsnycStreamTests(unittest.TestCase):
                 "id":"1"
             },lambda word: print(word)))
 
-        loop.run_until_complete(hello_world())
+        loop.create_task(hello_world())
+        loop.run_until_complete(asyncio.sleep(5))
