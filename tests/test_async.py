@@ -36,7 +36,7 @@ class AsnycTests(unittest.TestCase):
     def test_async_sync_ping_comparison(self):
         """
         This test runs the sync and async methods 'call_counts' times and checks if the async is faster than
-        sync or not ( more than twice or test brakes )
+        sync or not
         :return:
         """
         # number of simultaneous calls
@@ -65,8 +65,8 @@ class AsnycTests(unittest.TestCase):
         print("Asnycronous method took ", async_difference, "s")
         print()
 
-        # the async is more than twice as fast
-        self.assertGreater(sync_difference / 2, async_difference)
+        # the async is more fast
+        self.assertGreater(sync_difference, async_difference)
 
     def test_async_two_methods(self):
         """
@@ -74,14 +74,12 @@ class AsnycTests(unittest.TestCase):
         simple asynchronously running ping with an async hello_world coroutine
         :return:
         """
-        async def get_data():
-            return await self.appbase.ping()
 
         # some thing multable
         wait = [True]
         data = []
         asyncio.get_event_loop().create_task(hello_world(wait, data))
-        results = asyncio.get_event_loop().run_until_complete(get_data())
+        results = asyncio.get_event_loop().run_until_complete(self.appbase.ping())
         wait[0] = False
 
         async def temp():

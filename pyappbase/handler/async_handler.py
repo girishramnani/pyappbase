@@ -33,3 +33,15 @@ class AsyncHandler(object):
             async with session.delete(make_url(self.url,data)) as response:
                 resp = await response.read()
                 return json.loads(resp.decode())
+
+
+    async def get_stream(self,data,callback):
+        url = make_url(self.url,data)
+        url = url + "?stream=true"
+        print(url)
+        with aiohttp.ClientSession() as session:
+            async with session.get(url) as response:
+                while not response.content.at_eof():
+                    line = await response.content.readany()
+                    callback(line)
+

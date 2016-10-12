@@ -45,7 +45,7 @@ class SyncHandler(object):
         return requests.delete(url=make_url(self.url,data)).json()
 
 
-    def get_stream(self,data,callback=None):
+    def get_stream(self,data,callback):
 
         url = make_url(self.url,data)+"?stream=true" # direct concatenation as the url isn't going to be used by the user
 

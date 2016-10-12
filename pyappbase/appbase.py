@@ -77,6 +77,6 @@ class Appbase(object):
 
         return self.req_handler.delete(data)
 
-    def get_stream(self,data,callback=None):
+    def get_stream(self,data,callback):
 
         return self.req_handler.get_stream(data,callback)
