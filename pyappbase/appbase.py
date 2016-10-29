@@ -59,6 +59,14 @@ class Appbase(object):
         return self.req_handler.get(data)
 
 
+    def index(self,data,bulk=False):
+        """
+        takes in data and body of the object that is to be updated and sends it to appbase
+        :param data:
+        :return:
+        """
+        return self.req_handler.index(data,bulk)
+
     def update(self,data):
         """
         takes in data and body of the object that is to be updated and sends it to appbase
@@ -68,7 +76,7 @@ class Appbase(object):
         return self.req_handler.update(data)
 
 
-    def delete(self,data):
+    def delete(self,data,bulk=False):
         """
         takes in the type and id of the object hat is to be removed
         :param data:

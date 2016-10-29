@@ -8,8 +8,6 @@ class AsyncHandler(object):
 
     def __init__(self, url):
         self.url = url
-        self._hold = asyncio.Event()
-        self._hold.set()
 
     async def ping(self):
         with aiohttp.ClientSession() as session:
@@ -24,16 +22,30 @@ class AsyncHandler(object):
                 resp = await response.read()
                 return json.loads(resp.decode())
 
-    async def update(self,data):
+
+
+    async def index(self,data,bulk=False):
         compat_object = data["body"]
+        url = make_url(self.url,data,bulk)
         with aiohttp.ClientSession() as session:
-            async with session.post(make_url(self.url,data),data=json.dumps(compat_object)) as response:
+            async with session.post(url,data=json.dumps(compat_object)) as response:
                 resp = await response.read()
                 return json.loads(resp.decode())
 
-    async def delete(self,data):
+
+    async def update(self,data):
+            compat_object = data["body"]
+            url = make_url(self.url,data)+"/_update"
+            with aiohttp.ClientSession() as session:
+                async with session.post(url,data=json.dumps(compat_object)) as response:
+                    resp = await response.read()
+                    return json.loads(resp.decode())
+
+    async def delete(self,data,bulk=False):
+        url = make_url(self.url,data,bulk)
+
         with aiohttp.ClientSession() as session:
-            async with session.delete(make_url(self.url,data)) as response:
+            async with session.delete(url) as response:
                 resp = await response.read()
                 return json.loads(resp.decode())
 
@@ -44,29 +56,22 @@ class AsyncHandler(object):
 
         return await self._stream_on_url(url,data,callback)
 
-    def close_stream(self):
-        self._hold.clear()
-
-    def open_stream(self):
-        self._hold.set()
 
 
     async def _stream_on_url(self,url,data,callback):
-        self.open_stream()
         with aiohttp.ClientSession() as session:
             async with session.get(url) as response:
-                while (not response.content.at_eof()) and self._hold.is_set():
+                while (not response.content.at_eof()) :
                     line = await response.content.readany() # reads all the content in the buffer
                     callback(line)
                 response.close()
 
     async def search_stream(self,data,callback):
-        self.open_stream()
         url = "{url}/{type}/_search?stream=true".format(url=self.url,type=data["type"][:])
         del(data["type"])
         with aiohttp.ClientSession() as session:
             async with session.post(url,data=json.dumps(data)) as response:
-                while (not response.content.at_eof()) and self._hold.is_set():
+                while (not response.content.at_eof()) :
                     line = await response.content.readany() # reads all the content in the buffer
                     callback(line)
                 response.close()

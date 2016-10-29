@@ -13,16 +13,15 @@ async def hello_world(d, data):
 
 class AsnycTests(unittest.TestCase):
 
-    def setUp(self):
-        self.data = {
+
+    def tearDownClass(cls):
+        data = {
             "type": "Books",
             "id": "X2",
         }
-        self.appbase = setup(Appbase)
-        self.appbase._set_async()
-        self.sync_appbase = setup(Appbase)
+        sync_appbase = setup(Appbase)
 
-        self.sync_appbase.update({
+        sync_appbase.index({
             "type": "Books",
             "id": "X2",
             "body": {
@@ -33,40 +32,27 @@ class AsnycTests(unittest.TestCase):
             }
         })
 
-    def test_async_sync_ping_comparison(self):
-        """
-        This test runs the sync and async methods 'call_counts' times and checks if the async is faster than
-        sync or not
-        :return:
-        """
-        # number of simultaneous calls
-        call_counts = 4
 
+    def setUp(self):
+        self.data = {
+            "type": "Books",
+            "id": "X2",
+        }
+        self.appbase = setup(Appbase)
+        self.appbase._set_async()
+        self.sync_appbase = setup(Appbase)
 
-        t = time.time()
-        for i in range(call_counts):
-            print(self.sync_appbase.ping())
-        sync_difference = time.time() - t
-        print()
-        print("Syncronous method took ", sync_difference, "s")
+        print(self.sync_appbase.index({
+            "type": "Books",
+            "id": "X2",
+            "body": {
+                "department_id": 1,
+                "department_name": "Books",
+                "name": "A Fake Book on Network Routing",
+                "price": 5295
+            }
+        }))
 
-        async def get_data():
-            return await self.appbase.ping()
-
-        t = time.time()
-        loop = asyncio.get_event_loop()
-
-        async def get_data_gathered():
-            answer = await asyncio.gather(*[get_data() for _ in range(call_counts)], loop=loop)
-            return answer
-
-        print("".join(loop.run_until_complete(get_data_gathered())))
-        async_difference = time.time() - t
-        print("Asnycronous method took ", async_difference, "s")
-        print()
-
-        # the async is more fast
-        self.assertGreater(sync_difference, async_difference)
 
     def test_async_two_methods(self):
         """
@@ -97,10 +83,10 @@ class AsnycTests(unittest.TestCase):
         results = asyncio.get_event_loop().run_until_complete(get_data())
         self.assertEqual(results["_source"]["name"], "A Fake Book on Network Routing")
 
-    def test_async_update(self):
+    def test_async_index(self):
 
-        async def update_data():
-            return await self.appbase.update({
+        async def index_data():
+            return await self.appbase.index({
             "type": "Books",
             "id": "X2",
             "body": {
@@ -113,7 +99,7 @@ class AsnycTests(unittest.TestCase):
         async def get_data():
             return await self.appbase.get(self.data)
 
-        update = asyncio.get_event_loop().run_until_complete(update_data())
+        index = asyncio.get_event_loop().run_until_complete(index_data())
 
         result = asyncio.get_event_loop().run_until_complete(get_data())
         self.assertEqual(result["_source"]["name"], "A Fake Book on Distributed Compute")

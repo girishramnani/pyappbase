@@ -32,12 +32,25 @@ class SyncHandler(object):
 
 
 
-    def update(self,data):
+    def index(self,data,bulk=False):
+        """
+        takes in data and stores it in appbase. the data should have a body key
+
+        :param data:
+        :return:
+        """
         compat_object = data["body"]
-        return requests.post(url=make_url(self.url,data),data=json.dumps(compat_object)).json()
+        return requests.post(url=make_url(self.url,data,bulk),data=json.dumps(compat_object)).json()
 
+    def update(self,data):
+        """
+        takes in data and stores it in appbase. the data should have a body key
 
-        return requests
+        :param data:
+        :return:
+        """
+        compat_object = data["body"]
+        return requests.post(url=make_url(self.url,data)+"/_update",data=json.dumps(compat_object)).json()
 
 
     def delete(self,data):

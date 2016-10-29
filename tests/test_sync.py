@@ -23,7 +23,7 @@ class SyncTest(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        setup(Appbase).update({
+        setup(Appbase).index({
             "type": "Books",
             "id": "X2",
             "body": {
@@ -52,8 +52,6 @@ class SyncTest(unittest.TestCase):
         self.appbase.ping()
         self.assertEquals(self.appbase.ping()["status"], 200)
 
-    def test_index(self):
-        pass
 
     def test_get(self):
         data = self.appbase.get({
@@ -62,8 +60,8 @@ class SyncTest(unittest.TestCase):
         })
         self.assertEqual(data["_source"]["name"], "A Fake Book on Network Routing")
 
-    def test_update(self):
-        data = self.appbase.update({
+    def test_index(self):
+        data = self.appbase.index({
             "type": "Books",
             "id": "X3",
             "body": {
@@ -81,7 +79,7 @@ class SyncTest(unittest.TestCase):
         self.assertEqual(data["_source"]["name"], "A Fake Book on Distributed Compute")
 
     def test_delete(self):
-        data = self.appbase.update({
+        data = self.appbase.index({
             "type": "Books",
             "id": "X3",
             "body": {
@@ -102,36 +100,6 @@ class SyncTest(unittest.TestCase):
             "id": "X3",
         })["found"], False)
 
-    def test_bulk(self):
-        pass
-
-    def test_search(self):
-        pass
-
-    def test_get_stream(self):
-        def func():
-            self.appbase.get_stream({
-                "type": "Books",
-                "id": "X3",
-            },lambda x: print(x) )
-
-        t = threading.Thread(target=func)
-        t.start()
-        self.appbase.update({
-            "type": "Books",
-            "id": "X3",
-            "body": {
-                "department_id": 1,
-                "department_name": "Books",
-                "name": "A Fake Book on Distributed Compute",
-                "price": 5295
-            }
-        })
-        t.join()
 
 
-    def test_search_stream(self):
-        pass
 
-    def test_search_stream_to_url(self):
-        pass

@@ -5,11 +5,14 @@ from test_sync import setup
 from pyappbase import Appbase
 
 ## this test is more of a demo of actually how the async get stream works
-
+count =0
 async def hello_world():
+    global count
+    count =0
     while True:
         await asyncio.sleep(0.1)
         print("hello world")
+        count+=1
 
 
 class AsnycStreamTests(unittest.TestCase):
@@ -45,8 +48,8 @@ class AsnycStreamTests(unittest.TestCase):
 
         loop.create_task(hello_world())
         loop.run_until_complete(asyncio.sleep(5))
-        self.appbase.req_handler.close_stream()
         loop.run_until_complete(asyncio.sleep(1))
+        self.assertNotEqual(count,0)
 
 
     def test_search_stream(self):
@@ -55,3 +58,4 @@ class AsnycStreamTests(unittest.TestCase):
         loop.create_task(hello_world())
         loop.run_until_complete(asyncio.sleep(5))
         loop.stop()
+        self.assertNotEqual(count,0)
