@@ -14,24 +14,6 @@ async def hello_world(d, data):
 class AsnycTests(unittest.TestCase):
 
 
-    def tearDownClass(cls):
-        data = {
-            "type": "Books",
-            "id": "X2",
-        }
-        sync_appbase = setup(Appbase)
-
-        sync_appbase.index({
-            "type": "Books",
-            "id": "X2",
-            "body": {
-                "department_id": 1,
-                "department_name": "Books",
-                "name": "A Fake Book on Network Routing",
-                "price": 5295
-            }
-        })
-
 
     def setUp(self):
         self.data = {
@@ -53,6 +35,40 @@ class AsnycTests(unittest.TestCase):
             }
         }))
 
+    def test_async_sync_ping_comparison(self):
+        """
+        This test runs the sync and async methods 'call_counts' times and checks if the async is faster than
+        sync or not
+        :return:
+        """
+        # number of simultaneous calls
+        call_counts = 4
+
+
+        t = time.time()
+        for i in range(call_counts):
+            print(self.sync_appbase.ping())
+        sync_difference = time.time() - t
+        print()
+        print("Syncronous method took ", sync_difference, "s")
+
+        async def get_data():
+            return await self.appbase.ping()
+
+        t = time.time()
+        loop = asyncio.get_event_loop()
+
+        async def get_data_gathered():
+            answer = await asyncio.gather(*[get_data() for _ in range(call_counts)], loop=loop)
+            return answer
+
+        print("".join(loop.run_until_complete(get_data_gathered())))
+        async_difference = time.time() - t
+        print("Asnycronous method took ", async_difference, "s")
+        print()
+
+        # the async is more fast
+        self.assertGreater(sync_difference, async_difference)
 
     def test_async_two_methods(self):
         """
