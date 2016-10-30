@@ -121,7 +121,7 @@ print(loop.run_until_complete(tasks))
 
 ```
 
-** Console Output **
+**Console Output**
 
 ```
 [{"status":200,"message":"You have reached /jsfiddle-demo/ and are all set to make API requests"},
