@@ -3,6 +3,7 @@ import time
 import unittest
 from test_sync import setup
 from pyappbase import Appbase
+import json
 
 ## this test is more of a demo of actually how the async get stream works
 count =0
@@ -54,7 +55,7 @@ class AsnycStreamTests(unittest.TestCase):
 
     def test_search_stream(self):
         loop = asyncio.get_event_loop()
-        loop.create_task(self.appbase.search_stream({"type":"Books","query": {"match_all":{}}},lambda word: print(word)))
+        loop.create_task(self.appbase.search_stream({"type":"Books","query": {"match_all":{}}},lambda word: print(json.dumps(word,sort_keys=True,indent=4))))
         loop.create_task(hello_world())
         loop.run_until_complete(asyncio.sleep(5))
         loop.stop()
