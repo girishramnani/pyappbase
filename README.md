@@ -98,6 +98,44 @@ print(appbaseRef.delete({"type":"Books","id":"X4"}))
 '_id': 'X4',
 '_index': 'jsfiddle-demo'}
 ```
+### Async methods
+
+#### getting data from appbase 
+
+```python
+
+from asyncio import get_event_loop,gather
+from pyappbase import Appbase
+
+USERNAME="7eJWHfD4P"
+PASSWORD="431d9cea-5219-4dfb-b798-f897f3a02665"
+APPNAME="jsfiddle-demo"
+
+  
+  
+appbaseRef = Appbase(USERNAME,PASSWORD,APPNAME)
+
+loop = get_event_loop()
+tasks = gather(appbaseRef.ping(), appbaseRef.get({"type":"Books","id":"X2"}))
+print(loop.run_until_complete(tasks))
+
+```
+
+** Console Output **
+
+```
+[{"status":200,"message":"You have reached /jsfiddle-demo/ and are all set to make API requests"},
+{'_index': 'jsfiddle-demo', '_version': 215, '_type': 'Books', 'found': True, '_id': 'X2', '_source': {'price': 5295, 'department_id': 1, 'department_name': 'Books', 'name': 'A Fake Book on Network Routing'}}
+]
+```
+
+
+
+
+
+
+
+
 
 
 
