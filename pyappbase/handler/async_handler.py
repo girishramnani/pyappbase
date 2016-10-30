@@ -13,7 +13,7 @@ class AsyncHandler(object):
         with aiohttp.ClientSession() as session:
             async with session.get(self.url) as response:
                 resp = await response.read()
-                return resp.decode()
+                return json.loads(resp.decode())
 
 
     async def get(self,data):
@@ -63,7 +63,7 @@ class AsyncHandler(object):
             async with session.get(url) as response:
                 while (not response.content.at_eof()) :
                     line = await response.content.readany() # reads all the content in the buffer
-                    callback(line)
+                    callback(json.loads(line.decode()))
                 response.close()
 
     async def search_stream(self,data,callback):
@@ -73,5 +73,6 @@ class AsyncHandler(object):
             async with session.post(url,data=json.dumps(data)) as response:
                 while (not response.content.at_eof()) :
                     line = await response.content.readany() # reads all the content in the buffer
-                    callback(line)
+
+                    callback(json.loads(line.decode()))
                 response.close()
