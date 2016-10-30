@@ -129,11 +129,142 @@ print(loop.run_until_complete(tasks))
 ]
 ```
 
+### getting streaming data from appbase
 
+```
 
+loop.run_until_complete(appbaseRef.get_stream({"type":"Books","id":"X2"},lambda resp : print(resp)))
 
+```
 
+**Console Output**
+```
+{
+"_index":"jsfiddle-demo",
+"_type":"Books",
+"_id":"X2",
+"_version":237,
+"found":true,
+"_source":{"department_name": "Books", "price": 5295, "department_id": 1, "name": "A Fake Book on Network Routing"}
+}
 
+```
+
+This method will call the callback every time there is an update in the document with id `X2`
+
+### stream searching the data from appbase
+
+```
+loop.run_until_complete(self.appbase.search_stream({"type":"Books","query": {"match_all":{}}},lambda word: print(word)))
+
+```
+
+**Console Output**
+
+```
+{
+    "_shards": {
+        "failed": 0,
+        "successful": 1,
+        "total": 1
+    },
+    "hits": {
+        "hits": [
+            {
+                "_id": "AVXGXGx_GQ6uHvIS8e4h",
+                "_index": "jsfiddle-demo",
+                "_score": 1.0,
+                "_source": {
+                    "department_id": 1,
+                    "department_name": "Books",
+                    "name": "A Fake Book on Network Routing",
+                    "price": 5595
+                },
+                "_type": "Books"
+            },
+            {
+                "_id": "response",
+                "_index": "jsfiddle-demo",
+                "_score": 1.0,
+                "_source": {
+                    "department_id": 1,
+                    "department_name": "Books",
+                    "name": "A Fake Book on Network Routing",
+                    "price": 5595
+                },
+                "_type": "Books"
+            },
+            {
+                "_id": "11",
+                "_index": "jsfiddle-demo",
+                "_score": 1.0,
+                "_source": {
+                    "department_id": 1,
+                    "department_name": "Books",
+                    "name": "A Fake Book on Network Routing",
+                    "price": 5596
+                },
+                "_type": "Books"
+            },
+            {
+                "_id": "1",
+                "_index": "jsfiddle-demo",
+                "_score": 1.0,
+                "_source": {
+                    "department_id": 2,
+                    "department_name": "Books",
+                    "department_name_analyzed": "Books",
+                    "name": "A Fake Book on Network Routing",
+                    "price": 1952
+                },
+                "_type": "Books"
+            },
+            {
+                "_id": "X1",
+                "_index": "jsfiddle-demo",
+                "_score": 1.0,
+                "_source": {
+                    "department_id": 1,
+                    "department_name": "Books",
+                    "name": "A Fake Book on Network Routing",
+                    "price": 5595
+                },
+                "_type": "Books"
+            },
+            {
+                "_id": "X3",
+                "_index": "jsfiddle-demo",
+                "_score": 1.0,
+                "_source": {
+                    "department_id": 1,
+                    "department_name": "Books",
+                    "name": "A Fake Book on Distributed Compute",
+                    "price": 5295
+                },
+                "_type": "Books"
+            },
+            {
+                "_id": "X2",
+                "_index": "jsfiddle-demo",
+                "_score": 1.0,
+                "_source": {
+                    "department_id": 1,
+                    "department_name": "Books",
+                    "name": "A Fake Book on Network Routing",
+                    "price": 5295
+                },
+                "_type": "Books"
+            }
+        ],
+        "max_score": 1.0,
+        "total": 7
+    },
+    "timed_out": false,
+    "took": 4
+}
+```
+
+Similar to the `get_stream` method if any new record are added to the type `Books` then the callback will be executed in real time.
 
 
 
